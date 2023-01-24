@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NovaFleetCore.Structures;
 
+using NovaFleetCore;
 namespace NovaFleetTests
 {
     [TestClass]
