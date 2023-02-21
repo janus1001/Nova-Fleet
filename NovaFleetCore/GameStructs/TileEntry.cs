@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NovaFleetCore.GameStructs
 {
-    struct TileEntry
+    public class TileEntry
     {
         public readonly bool exists;
 
@@ -20,6 +20,14 @@ namespace NovaFleetCore.GameStructs
                 }
             }
             return true;
+        }
+
+        internal TileEntry(bool inBounds)
+        {
+            exists = inBounds;
+
+            if(exists)
+                entities = new List<BoardEntity>();
         }
     }
 }
