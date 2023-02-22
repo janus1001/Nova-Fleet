@@ -20,10 +20,22 @@ namespace NovaFleetTests
         {
             var board = new Board(x, y);
             var tile = board.GetTile(x, y);
-            BoardEntity boardEntity = new StaticObstacleEntity();
+            BoardEntity boardEntity = new StationaryObstacleEntity(tile);
             tile.entities.Add(boardEntity);
 
             Assert.IsTrue(tile.entities.Count > 0);
+        }
+
+        [TestMethod]
+        [DataRow(10, 10)]
+        public void BoardAddPlayerShipTest(int x, int y)
+        {
+            var board = new Board(x, y);
+            var tile = board.GetTile(x, y);
+            BoardEntity boardEntity = new PlayerShipEntity(tile);
+            tile.entities.Add(boardEntity);
+
+            Assert.IsTrue(boardEntity is PlayerShipEntity);
         }
     }
 }

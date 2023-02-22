@@ -6,6 +6,8 @@ namespace NovaFleetCore.GameStructs
 {
     public class TileEntry
     {
+        public Hex TileLocation { get; private set; }
+        public Board ParentBoard { get; private set; }
         public readonly bool exists;
 
         public List<BoardEntity> entities;
@@ -22,12 +24,20 @@ namespace NovaFleetCore.GameStructs
             return true;
         }
 
-        internal TileEntry(bool inBounds)
+        public TileEntry(Hex position, bool inBounds, Board parentBoard)
         {
+            TileLocation = position;
+            ParentBoard = parentBoard;
+
             exists = inBounds;
 
             if(exists)
                 entities = new List<BoardEntity>();
+        }
+
+        public override string ToString()
+        {
+            return exists ? $"{entities.Count}" : "-";
         }
     }
 }

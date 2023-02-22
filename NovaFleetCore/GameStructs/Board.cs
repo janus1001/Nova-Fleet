@@ -11,17 +11,32 @@ namespace NovaFleetCore.GameStructs
 
         private TileEntry[,] tiles;
 
+        /// <summary>
+        /// Returns a tile with the given coordinates. Returns null if the tile is not valid.
+        /// </summary>
         public TileEntry GetTile(int q, int r)
         {
+            // Check for array bounds
             if (q < 0 || q >= MapWidth || r < 0 || r >= MapHeight)
                 return null;
 
-            if(tiles[r,q].exists)
-                return tiles[r, q];
+            // Check if the tile isn't empty
+            if(!tiles[r,q].exists)
+                return null;
 
-            return null;
+            return tiles[r, q];
+        }
+        /// <summary>
+        /// Returns a tile with the given coordinates. Returns null if the tile is not valid.
+        /// </summary>
+        public TileEntry GetTile(Hex pos)
+        {
+            return GetTile(pos.q, pos.r);
         }
 
+        /// <summary>
+        /// Checks if the tile with coordinates exists.
+        /// </summary>
         private bool CheckForValidTile(int q, int r)
         {
             return q >= 0 && q < MapWidth && r >= 0 && r < MapHeight && tiles[q, r].exists;
@@ -32,6 +47,9 @@ namespace NovaFleetCore.GameStructs
             tiles = HexagonMap(width, height);
         }
 
+        /// <summary>
+        /// Returns a default, hexagonal map
+        /// </summary>
         public TileEntry[,] HexagonMap(int edgeWidth, int edgeHeight)
         {
             MapWidth = edgeWidth + edgeHeight - 1;
@@ -44,7 +62,7 @@ namespace NovaFleetCore.GameStructs
             {
                 for (int r = 0; r < MapHeight; r++)
                 {
-                    tileMapData[q, r] = new TileEntry(false);
+                    tileMapData[q, r] = new TileEntry(new Hex(q, r), false, this);
                 }
             }
 
@@ -58,11 +76,16 @@ namespace NovaFleetCore.GameStructs
                     if (r + offset >= MapWidth || r + offset < 0)
                         continue;
 
-                    tileMapData[r + offset, q] = new TileEntry(true);
+                    tileMapData[r + offset, q] = new TileEntry(new Hex(q, r), true, this);
                 }
             }
 
             return tileMapData;
+        }
+
+        public override string ToString()
+        {
+            return $"{MapHeight} x {MapWidth}";
         }
     }
 }

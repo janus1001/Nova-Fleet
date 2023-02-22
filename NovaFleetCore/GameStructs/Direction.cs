@@ -13,4 +13,17 @@
         W = 0b0001,
         NW = 0b0010
     }
+
+    public static class DirectionExtensions
+    {
+        public static Hex Multiply(this Direction direction, int magnitude)
+        {
+            Hex hex = new Hex();
+            for (int i = 0; i < magnitude; i++)
+            {
+                hex += direction;
+            }
+            return hex;
+        }
+    }
 }

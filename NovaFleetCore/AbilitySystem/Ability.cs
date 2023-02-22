@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NovaFleetCore.GameStructs
+namespace NovaFleetCore.AbilitySystem
 {
-    class PlayerUnit : BoardEntity
+    class Ability
     {
 
     }
