@@ -4,9 +4,15 @@ using System.Text;
 
 namespace NovaFleetCore.GameStructs
 {
-    class Match
+    public class MatchState
     {
         public List<Player> players;
         public Board board;
+
+        public MatchState()
+        {
+            players = new List<Player> { new Player(), new Player() };
+            board = new Board(5, 5);
+        }
     }
 }

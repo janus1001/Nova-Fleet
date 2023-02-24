@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NovaFleetCore.GameStructs
 {
-    class Player
+    public class Player
     {
         int energy;
         PlayerShipEntity[] controlledEntities;

@@ -34,7 +34,7 @@ namespace NovaFleetCore.GameStructs
             }
         }
 
-        void ChangeLocation(TileEntry newTile)
+        protected void ChangeLocation(TileEntry newTile)
         {
             currentTile.entities.Remove(this);
             newTile.entities.Add(this);
@@ -106,7 +106,7 @@ namespace NovaFleetCore.GameStructs
 
         public void Move(TileEntry targetTile)
         {
-            throw new NotImplementedException();
+            ChangeLocation(targetTile);
         }
     }
 

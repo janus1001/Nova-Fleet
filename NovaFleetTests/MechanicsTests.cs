@@ -9,15 +9,21 @@ namespace NovaFleetTests
         [TestMethod]
         public void MoveEntity()
         {
-            /*var board = new Board(x, y);
-            var tile = board.GetTile(x, y);
-            BoardEntity boardEntity = new StaticObstacleEntity();
+            var board = new Board(5, 5);
+            var tile = board.GetTile(5, 5);
+            BoardEntity boardEntity = new PlayerShipEntity(tile);
             tile.entities.Add(boardEntity);
 
-            boardEntity.Move();
+            // Pre-movement
+            Assert.IsTrue(tile.entities.Count > 0);
 
-            Assert.IsTrue(tile.entities.Count > 0);*/
-            throw new System.NotImplementedException();
+            // Movement
+            TileEntry toTile = board.GetTile(tile.TileLocation + Direction.E);
+            (boardEntity as PlayerShipEntity).Move(toTile);
+
+            // Post movement
+            Assert.IsTrue(tile.entities.Count == 0);
+            Assert.IsTrue(toTile.entities.Count > 0);
         }
         
         [TestMethod]
