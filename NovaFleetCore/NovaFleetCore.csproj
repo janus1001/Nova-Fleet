@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="AbilitySystem\" />
     <Folder Include="Events\" />
   </ItemGroup>
 

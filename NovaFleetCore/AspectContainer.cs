@@ -6,7 +6,7 @@ namespace NovaFleetCore.Structures
 {
     public interface IContainer
     {
-        T AddAspect<T>(string key = null) where T : IAspect, new();
+        // T CreateNewAspect<T>(string key = null) where T : IAspect, new();
         T AddAspect<T>(T aspect, string key = null) where T : IAspect;
         T GetAspect<T>(string key = null) where T : IAspect;
         ICollection<IAspect> Aspects();
@@ -21,7 +21,7 @@ namespace NovaFleetCore.Structures
     {
         Dictionary<string, IAspect> aspects = new Dictionary<string, IAspect>();
 
-        public T AddAspect<T>(string key = null) where T : IAspect, new()
+        public T CreateNewAspect<T>(string key = null) where T : IAspect, new()
         {
             return AddAspect(new T(), key);
         }

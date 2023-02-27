@@ -20,7 +20,7 @@ namespace NovaFleetTests
         public void ContainerCreateTest()
         {
             Container container = new Container();
-            container.AddAspect<TestAspect>();
+            container.CreateNewAspect<TestAspect>();
             Assert.AreEqual(container.Aspects().Count, 1);
         }
 
@@ -28,8 +28,8 @@ namespace NovaFleetTests
         public void ContainerCreateMultipleTest()
         {
             var container = new Container();
-            container.AddAspect<TestAspect>("Test1");
-            container.AddAspect<TestAspect>("Test2");
+            container.CreateNewAspect<TestAspect>("Test1");
+            container.CreateNewAspect<TestAspect>("Test2");
             Assert.AreEqual(container.Aspects().Count, 2);
         }
 
@@ -37,8 +37,8 @@ namespace NovaFleetTests
         public void ContainerCreateDifferentTest()
         {
             var container = new Container();
-            container.AddAspect<TestAspect>();
-            container.AddAspect<AltTestAspect>();
+            container.CreateNewAspect<TestAspect>();
+            container.CreateNewAspect<AltTestAspect>();
             Assert.AreEqual(container.Aspects().Count, 2);
         }
 
@@ -46,7 +46,7 @@ namespace NovaFleetTests
         public void ContainerRetrieveWithKeyTest()
         {
             var container = new Container();
-            var original = container.AddAspect<TestAspect>("Test");
+            var original = container.CreateNewAspect<TestAspect>("Test");
             var retrieved = container.GetAspect<TestAspect>("Test");
 
             Assert.AreSame(original, retrieved);
@@ -56,7 +56,7 @@ namespace NovaFleetTests
         public void ContainerRetrieveWithoutKeyTest()
         {
             var container = new Container();
-            var original = container.AddAspect<TestAspect>();
+            var original = container.CreateNewAspect<TestAspect>();
             var retrieved = container.GetAspect<TestAspect>();
 
             Assert.AreSame(original, retrieved);
@@ -93,7 +93,7 @@ namespace NovaFleetTests
         public void AspectTracksContainerReferenceTest()
         {
             var container = new Container();
-            var original = container.AddAspect<TestAspect>();
+            var original = container.CreateNewAspect<TestAspect>();
             Assert.IsNotNull(original.container);
         }
     }
