@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NovaFleetCore.AbilitySystem;
 using NovaFleetCore.GameStructs;
 namespace NovaFleetTests
 {
@@ -40,6 +41,40 @@ namespace NovaFleetTests
             byte[] serialisedHex = hex.Serialize();
 
             Assert.IsTrue(hex.Equals(new Hex(serialisedHex)));
+        }
+
+        [TestMethod]
+        [DataRow("Name:Blast Wave Artillery\nType:M\nCost:1\nDescription:Choose a tile in a line. Push away all adjacent units.\\n\\nThe blast tile must be between 2 to 5 tiles away from the attacking unit.\n\n..Selector..\nTSArtillery\nTSRangeOutwards_6 -\nTSRangeInwards_2 -\n\n..Execute..\nESelectTile\nEMoveOrigin\nESelectArea_1\nEKnockback_1")]
+        [DataRow("Name:Boosters\nType:M\nCost:1\nDescription:Go forward up to three tiles.\n\n..Selector..\nTSForwards ^\nTSForwards &^\nTSForwards &^\n\n..Execute..\nESelectTile\nEMoveToTile")]
+        public void LoadAbility(string abilityText)
+        {
+            ModuleCard ability = AbilityLoader.LoadAbility(abilityText);
+            System.Console.WriteLine(ability);
+
+            Assert.IsNotNull(ability);
+        }
+
+        [TestMethod]
+        public void Test()
+        {
+            string input =
+@"Name:Blast Wave Artillery
+Type:M
+Cost:1
+Description:Choose a tile in a line. Push away all adjacent units.\n\nThe blast tile must be between 2 to 5 tiles away from the attacking unit.
+
+--Selector--
+TSArtillery
+TSRangeOutwards_6 -
+TSRangeInwards_2 -
+
+--Execute--
+ESelectTile
+EMoveOrigin
+ESelectArea_1
+EKnockback_1";
+
+            
         }
     }
 }

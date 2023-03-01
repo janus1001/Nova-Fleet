@@ -14,11 +14,12 @@ namespace NovaFleetCore.AbilitySystem
 
         public static ModuleCard LoadAbility(string moduleString)
         {
-            string name = Regex.Match(moduleString, nameRegex).Groups[0].Value;
-            string description = Regex.Match(moduleString, descriptionRegex).Groups[0].Value;
+            string nameMatch = Regex.Match(moduleString, nameRegex).Groups[1].Value;
+            string descriptionMatch = Regex.Match(moduleString, descriptionRegex).Groups[1].Value;
             AbilityType abilityType;
 
-            switch (Regex.Match(moduleString, typeRegex).Groups[1].Value)
+            string typeMatch = Regex.Match(moduleString, typeRegex).Groups[1].Value;
+            switch (typeMatch)
             {
                 case "A":
                     abilityType = AbilityType.Attack;
@@ -33,8 +34,9 @@ namespace NovaFleetCore.AbilitySystem
                     return null;
             }
 
+            string costMatch = Regex.Match(moduleString, costRegex).Groups[1].Value;
             int cost;
-            if(int.TryParse(Regex.Match(moduleString, costRegex).Groups[0].Value, out int parsedCost))
+            if(int.TryParse(costMatch, out int parsedCost))
             {
                 cost = parsedCost;
             }
@@ -43,10 +45,16 @@ namespace NovaFleetCore.AbilitySystem
                 return null;
             }
 
-            ModuleCard loadedModuleCard = new ModuleCard(name, description, abilityType, cost);
+            ModuleCard loadedModuleCard = new ModuleCard(nameMatch, descriptionMatch, abilityType, cost);
 
+            System.IO.StringReader stringReader = new System.IO.StringReader(moduleString);
 
-            
+            while (stringReader.Peek() != -1)
+            {
+                string label = stringReader.ReadLine();
+                string match = Regex.Match(label, @"--(\w+)--").Groups[1].Value;
+            }
+
             return loadedModuleCard;
         }
     }

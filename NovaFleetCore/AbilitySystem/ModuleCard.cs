@@ -15,7 +15,7 @@ namespace NovaFleetCore.AbilitySystem
         public AbilityType type;
         public int cost;
 
-        Dictionary<string, IAspect> moduleComponents;
+        Dictionary<string, IAspect> moduleComponents = new Dictionary<string, IAspect>();
 
         public ModuleCard(string name, string description, AbilityType type, int cost)
         {
@@ -46,6 +46,11 @@ namespace NovaFleetCore.AbilitySystem
             key = key ?? typeof(T).Name;
             T aspect = moduleComponents.ContainsKey(key) ? (T)moduleComponents[key] : default(T);
             return aspect;
+        }
+
+        public override string ToString()
+        {
+            return $"[{type}] {name} ({cost})\n{moduleComponents.Count} effect(s)\n{description}";
         }
     }
 }
