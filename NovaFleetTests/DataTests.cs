@@ -44,8 +44,8 @@ namespace NovaFleetTests
         }
 
         [TestMethod]
-        [DataRow("Name:Blast Wave Artillery\nType:M\nCost:1\nDescription:Choose a tile in a line. Push away all adjacent units.\\n\\nThe blast tile must be between 2 to 5 tiles away from the attacking unit.\n\n..Selector..\nTSArtillery\nTSRangeOutwards_6 -\nTSRangeInwards_2 -\n\n..Execute..\nESelectTile\nEMoveOrigin\nESelectArea_1\nEKnockback_1")]
-        [DataRow("Name:Boosters\nType:M\nCost:1\nDescription:Go forward up to three tiles.\n\n..Selector..\nTSForwards ^\nTSForwards &^\nTSForwards &^\n\n..Execute..\nESelectTile\nEMoveToTile")]
+        [DataRow("Name:Blast Wave Artillery\nType:M\nCost:1\nDescription:Choose a tile in a line. Push away all adjacent units.\\n\\nThe blast tile must be between 2 to 5 tiles away from the attacking unit.\n{\n--Selector--\nTSArtillery\nTSRangeOutwards_6 -\nTSRangeInwards_2 -\n\n--Execute--\nESelectTile\nEMoveOrigin\nESelectArea_1\nEKnockback_1\n}")]
+        [DataRow("Name:Boosters\nType:M\nCost:1\nDescription:Go forward up to three tiles.\n{\n--Selector--\nTSForwards ^\nTSForwards &^\nTSForwards &^\n\n--Execute--\nESelectTile\nEMoveToTile\n}")]
         public void LoadAbility(string abilityText)
         {
             ModuleCard ability = AbilityLoader.LoadAbility(abilityText);

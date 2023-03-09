@@ -14,7 +14,7 @@ namespace NovaFleetCore.Structures
 
     public interface IAspect
     {
-        IContainer container { get; set; }
+        IContainer parentContainer { get; set; }
     }
 
     public class Container : IContainer
@@ -30,7 +30,7 @@ namespace NovaFleetCore.Structures
         {
             key = key ?? typeof(T).Name;
             aspects.Add(key, aspect);
-            aspect.container = this;
+            aspect.parentContainer = this;
             return aspect;
         }
 
@@ -49,6 +49,6 @@ namespace NovaFleetCore.Structures
 
     public class Aspect : IAspect
     {
-        public IContainer container { get; set; }
+        public IContainer parentContainer { get; set; }
     }
 }

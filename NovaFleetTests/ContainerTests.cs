@@ -9,11 +9,11 @@ namespace NovaFleetTests
     {
         private class TestAspect : IAspect
         {
-            public IContainer container { get; set; }
+            public IContainer parentContainer { get; set; }
         }
         private class AltTestAspect : IAspect
         {
-            public IContainer container { get; set; }
+            public IContainer parentContainer { get; set; }
         }
 
         [TestMethod]
@@ -94,7 +94,7 @@ namespace NovaFleetTests
         {
             var container = new Container();
             var original = container.CreateNewAspect<TestAspect>();
-            Assert.IsNotNull(original.container);
+            Assert.IsNotNull(original.parentContainer);
         }
     }
 }

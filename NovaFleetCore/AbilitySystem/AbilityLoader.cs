@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NovaFleetCore.Structures;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -47,15 +48,55 @@ namespace NovaFleetCore.AbilitySystem
 
             ModuleCard loadedModuleCard = new ModuleCard(nameMatch, descriptionMatch, abilityType, cost);
 
-            System.IO.StringReader stringReader = new System.IO.StringReader(moduleString);
+            int startIndex = moduleString.IndexOf(moduleBlockStartChar) + 1;
+            int endIndex = moduleString.IndexOf(moduleBlockEndChar, startIndex);
 
+            System.IO.StringReader stringReader = new System.IO.StringReader(moduleString.Substring(startIndex, endIndex - startIndex));
+
+            List<AbilityAspect> abilityAspects = new List<AbilityAspect>();
+
+            string currentLabel = null;
+            List<string> abilityDescription = new List<string>();
             while (stringReader.Peek() != -1)
             {
-                string label = stringReader.ReadLine();
-                string match = Regex.Match(label, @"--(\w+)--").Groups[1].Value;
+                string lineText = stringReader.ReadLine();
+
+                if (lineText.StartsWith("--"))
+                {
+                    // If we encounter a new label, add the previous ability (if any) and start a new one
+                    if (currentLabel != null)
+                    {
+                        abilityAspects.Add(StringToAbility(currentLabel, abilityDescription));
+                        abilityDescription.Clear();
+                    }
+
+                    currentLabel = lineText.TrimStart('-').TrimEnd('-').Trim();
+                }
+                else
+                {
+                    abilityDescription.Add(lineText.Trim());
+                }
+            }
+
+            // Add the last ability (if any)
+            if (currentLabel != null)
+            {
+                abilityAspects.Add(StringToAbility(currentLabel, abilityDescription));
             }
 
             return loadedModuleCard;
         }
+
+        static AbilityAspect StringToAbility(string aspectName, List<string> aspectDetails)
+        {
+            AbilityAspect abilityAspect = new AbilityAspect();
+            abilityAspect.aspectName = aspectName;
+            abilityAspect.aspectEffects = GetEffects(aspectDetails);
+
+            return new AbilityAspect();
+        }
+
+        const char moduleBlockStartChar = '{';
+        const char moduleBlockEndChar = '}';
     }
 }
